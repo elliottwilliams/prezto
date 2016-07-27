@@ -9,3 +9,24 @@
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+ 
+# This will only work in zsh, which maintains a $path array that maps to the
+# $PATH string automatically.
+path=(
+    "$HOME/.local/bin"
+    "/Library/TeX/texbin"
+    "/usr/local/bin"
+    "/usr/local/sbin"
+    "/usr/bin"
+    "/usr/sbin"
+    "/bin"
+    "/sbin"
+)
+
+# Include local man files:
+export MANPATH="$HOME/include/man:$HOME/include/share/man:$MANPATH"
+
+# Use vim whenever possible:
+export EDITOR=vim
+

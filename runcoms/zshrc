@@ -10,4 +10,31 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# Disable corrections (I'm not a fan, I guess):
+unsetopt CORRECT
+
+# If this is a tmux shell, load tmux-specific functions.
+if [ -n "$TMUX" ]; then
+    source ~/.tmux/functions
+else
+    source ~/.local/bin/tmux-sessions-header
+fi
+
+
+# EMW-defined aliases:
+alias tmux='tmux -2' # force tmux to use 256-colors
+alias ta='tmux attach -t'
+alias dl="ls -t ~/Downloads | head -n 1 | sed -e 's:^:'"$HOME"'/Downloads/:'" # latest download
+alias ql='qlmanage -p 2>/dev/null'
+
+# Do not be disturbed by Ctrl-S ctrl-Q in terminals:
+stty sane
+
+# Load slow, bloated, indispensible language and integration tools. Ones I use
+# rarely are off by default and can be loaded with the `use_` functions below:
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export NVM_DIR="$HOME/.nvm"
+function use_nvm { [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" }
+function use_gvm { [[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh" }
