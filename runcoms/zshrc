@@ -13,6 +13,9 @@ fi
 # Disable corrections (I'm not a fan, I guess):
 unsetopt CORRECT
 
+# Fixes a bug where, with RVM, `RVM_PROJECT_PATH` shows up as the path.
+unsetopt auto_name_dirs
+
 # If this is a tmux shell, load tmux-specific functions.
 if [ -n "$TMUX" ]; then
     source ~/.tmux/functions
@@ -33,8 +36,10 @@ stty sane
 # Load slow, bloated, indispensible language and integration tools. Ones I use
 # rarely are off by default and can be loaded with the `use_` functions below:
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export NVM_DIR="$HOME/.nvm"
 function use_nvm { [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" }
 function use_gvm { [[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh" }
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi

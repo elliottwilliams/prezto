@@ -22,7 +22,10 @@ path=(
     "/usr/sbin"
     "/bin"
     "/sbin"
+    "$HOME/.rvm/bin"    # for RVM scripting
 )
+
+export PATH="$PATH:$HOME/.rvm/bin" 
 
 # Include local man files:
 export MANPATH="$HOME/include/man:$HOME/include/share/man:$MANPATH"
