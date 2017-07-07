@@ -19,6 +19,10 @@ unsetopt auto_name_dirs
 # If this is a tmux shell, load tmux-specific functions.
 if [ -n "$TMUX" ]; then
     source ~/.tmux/functions
+    name=$(tmux list-sessions | grep attached | sed -e 's/^\([A-Za-z0-9]*\):.*/\1/')
+    if [[ "$PWD" == "$HOME" && -d "$HOME/y/$name" ]]; then
+      cd "$HOME/y/$name"
+    fi
 else
   [ -s ~/.local/bin/tmux-sessions-header ] && \
     source ~/.local/bin/tmux-sessions-header
@@ -30,9 +34,8 @@ alias tmux='tmux -2' # force tmux to use 256-colors
 alias ta='tmux attach -t'
 alias dl="ls -t ~/Downloads | head -n 1 | sed -e 's:^:'"$HOME"'/Downloads/:'" # latest download
 alias ql='qlmanage -p 2>/dev/null'
-if (( $+commands[nvim] )); then 
-  alias vim=nvim
-fi
+true $+commands[nvim] && alias vim=nvim
+true $+commands[ag] && alias ack=ag
 
 # Do not be disturbed by Ctrl-S ctrl-Q in terminals:
 stty sane

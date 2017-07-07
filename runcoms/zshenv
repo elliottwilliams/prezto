@@ -31,5 +31,9 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export MANPATH="$HOME/include/man:$HOME/include/share/man:$MANPATH"
 
 # Use vim whenever possible:
+if type nvim > /dev/null; then
+  export EDITOR=nvim
+else
 export EDITOR=vim
+fi
 
