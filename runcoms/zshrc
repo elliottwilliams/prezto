@@ -29,6 +29,7 @@ alias tmux='tmux -2' # force tmux to use 256-colors
 alias ta='tmux attach -t'
 alias dl="ls -t ~/Downloads | head -n 1 | sed -e 's:^:'"$HOME"'/Downloads/:'" # latest download
 alias ql='qlmanage -p 2>/dev/null'
+type nvim &>/dev/null && alias vim='nvim'
 
 # Do not be disturbed by Ctrl-S ctrl-Q in terminals:
 stty sane
@@ -43,3 +44,5 @@ function use_gvm { [[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/b
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
